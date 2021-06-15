@@ -1,0 +1,187 @@
+<!doctype html>
+<style>
+.container{
+  display: flex;
+}
+.col{
+  flex: 1;
+}
+</style>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>reveal.js</title>
+
+    <link rel="stylesheet" href="dist/reset.css">
+    <link rel="stylesheet" href="dist/reveal.css">
+    <link rel="stylesheet" href="dist/theme/black.css">
+
+    <!-- Theme used for syntax highlighted code -->
+    <link rel="stylesheet" href="plugin/highlight/monokai.css">
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides">
+        <section>
+        <section>
+          <h2>Computational Astrophysics</h2>
+          <div class="container">
+            <div class="col">
+              <ul>
+                <li>Plasma simulations</li>
+                <li>Finite-difference based solver in <var>Fortran-95</var> </li>
+                <li>Parallelisation using <var>MPICH</var> </li>
+                <li>Extended solver with parabolic component (FTCD)</li>
+              </ul>
+            </div>
+            <div class="col">
+              <img class="r-frame" width="400" data-src="picture/mountain.webp">
+            </div>
+        </section>
+        <section>
+            <h2>Resistive plasma flow</h2>
+              <ul>
+                <li>"Ideal MHD": plasma cannot cross field lines</li>
+                <li>Field lines are pinned to star</li>
+                <li>Resistive MHD: mountain flows towards equator</li>
+             <img class="r-stretch" data-src="picture/resistive.png">
+        </section>
+        <section>
+            <h2>Resistive MHD</h2>
+            \[\frac{\partial \rho}{\partial t} + \nabla \left(\rho \mathbf{v}\right) = 0\] <!-- conservation -->
+            \[\rho\left(\frac{\partial \mathbf{v}}{\partial t} + \mathbf{v} \cdot \nabla \mathbf{v}\right) + \nabla p -\left( \nabla \times B\right) \times B + \rho \nabla \varphi = 0\] <!--- momentum -->
+            \[\frac{\partial \mathbf{B}}{\partial t} - \nabla \times \left(\mathbf{v} \times \mathbf{B} - \color{yellow}{\eta \nabla \times \mathbf{B}}\right) = 0\] <!-- induction -->
+        </section>
+        </section>
+        <section>
+        <section>
+          <h2>Computational Biology</h2>
+          <div class="container">
+            <div class="col">
+              <ul>
+                <li>Reaction-Drift-Diffusion systems</li>
+                <li>Monte-Carlo solver in <var>C++</var> </li>
+                <li>Parallelisation on GPUs using <var>CUDA</var> and <var>OPEN-CL</var> </li>
+              </ul>
+            </div>
+            <div class="col">
+              <img class="r-frame" width="400" data-src="picture/calcium.png">
+            </div>
+        </section>
+        <section>
+          <h2>Gillespie Multiparticle</h2>
+          <div class="container">
+            <div class="col">
+              <ul>
+                <li>Parallel approach: Discretize domain</li>
+                <li>Particles (reactants, ants, etc.) can react inside cell..</li>
+                <li>.. and move between cells</li>
+              </ul>
+            </div>
+            <div class="col">
+              <img class="r-frame" width="400" data-src="picture/gmp_basic.png" style="background-color:white;">
+            </div>
+        </section>
+        <section>
+          <h2>Stochastic approach</h2>
+          Ito SDE for motion:
+          \[\mathrm{d} \mathbf{X}_t=\mathbf{q}(\mathbf{X}_t, t)\, \mathrm{d}t +\mathbf{b}(\mathbf{X}_t, t)\, \mathrm{d} \mathbf{W}_t\]
+          Averaging yields Fokker-Planck-Equation (drift-diffusion type):
+          \[\frac{\partial}{\partial t} p = - \nabla \cdot \left(q p \right) + \frac{1}{2} \nabla^2 \cdot \left[ \left(\mathbf{b} \mathbf{\cdot} \mathbf{b^\mathrm{T}}\right) p\right].\]
+        </section>
+        </section>
+        <section>
+        <section>
+          <h2>Pedestrian Traffic</h2>
+              <ul>
+                <li>Social force model for pedestrian interaction</li>
+                <li>Windows desktop application in <var>C++</var> </li>
+                <li>Parallelisation using <var>TBB</var> and <var>SIMD</var> intrinsics</li>
+              </ul>
+          <img class="r-frame" width="600" data-src="picture/viswalk.png">
+        </section>
+        <section>
+          <h2>Social Force Model</h2>
+          <div class="container">
+            <div class="col">
+                Pedestrian has inertia and reacts to forces such as
+                <ul>
+                  <li>pedestrians $\mathcal{O}(n^2)$</li>
+                  <li>walls</li>
+                  <li>pull from target</li>
+              </ul>
+            </div>
+            <div class="col">
+              <img class="r-frame" width="400" data-src="picture/social_force.jpg">
+            </div>
+        </section>
+        <section>
+          <h2>Pedestrian Path Finding</h2>
+              <ul>
+                <li>Compute distance function by solving Eikonal equation</li>
+                <li>Pedestrian direction is given by gradient</li>
+              </ul>
+          <img class="r-frame" width="600" data-src="picture/distance.png">
+        </section>
+        <section>
+          <h2> Eikonal equation </h2>
+          \[
+            \left|\nabla u(\mathbf{x})\right|^2 - \frac{1}{f(\mathbf{x})^2} = 0
+          \]
+          <p> $f(\mathbf x)$ is the speed function (0 for barriers). </p>
+          "Godunov" upwind discretization:
+          \[
+          \frac{(U_{i,j} - U_{i,\min})^2}{(\Delta x)^2} + \frac{(U_{i,j} - U_{j,\min})^2}{(\Delta y)^2} - \frac{1}{f_{ij}} = 0
+          \]
+        </section>
+        <section>
+              <ul>
+                <li>Fast marching: always update next node with smallest value (Dijkstra)</li>
+                <li>We used TBB-parallelised solver (Jeong, 2008)</li>
+                <li>Update active list in parallel</li>
+                <li>Active list contains nodes in wave front and nodes which need to be revised</li>
+              </ul>
+        </section>
+        </section>
+        <!-- Characteristics of Eikonal equation are pedestrian paths. We trace the characteristic
+        back to the boundary where u(x,y) = 0. This motiviates the discretization used in the "Godunov" upwind
+        scheme that discretizes the spatial gradient using the minimum neighbour cell. 
+        Another approach is to solve a discrete Bellman-type equation to arrive at the viscosity (weak) solution. -->
+        <section>
+          <h2>DBMS</h2>
+          <div class="container">
+            <div class="col">
+              <ul>
+                <li>Compute complex scenarios on database</li>
+                <li>Large codebase in <var>C++</var> </li>
+                <li>Task-based parallelisation using internal framework</li>
+                <li>Performance challenges from server architecture (NUMA..)</li>
+              </ul>
+            </div>
+            <div class="col">
+              <img class="r-frame" width="400" data-src="picture/sap_calc_engine.png">
+            </div>
+        </section>
+
+      </div>
+
+      <script src="dist/reveal.js"></script>
+      <script src="plugin/zoom/zoom.js"></script>
+      <script src="plugin/notes/notes.js"></script>
+      <script src="plugin/highlight/highlight.js"></script>
+      <script src="plugin/math/math.js"></script>
+      <script>
+        // More info about initialization & config:
+        // - https://revealjs.com/initialization/
+        // - https://revealjs.com/config/
+        Reveal.initialize({
+          hash: true,
+
+          // Learn about plugins: https://revealjs.com/plugins/
+          plugins: [ RevealZoom, RevealHighlight, RevealNotes, RevealMath ]
+        });
+      </script>
+  </body>
+</html>
